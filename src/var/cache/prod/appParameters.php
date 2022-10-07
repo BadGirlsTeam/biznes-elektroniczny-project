@@ -1,0 +1,25 @@
+<?php return array (
+  'parameters' => 
+  array (
+    'database_host' => '127.0.0.1',
+    'database_port' => '',
+    'database_name' => 'biznes-elektroniczny-project',
+    'database_user' => 'root',
+    'database_password' => '',
+    'database_prefix' => '',
+    'database_engine' => 'InnoDB',
+    'mailer_transport' => 'smtp',
+    'mailer_host' => '127.0.0.1',
+    'mailer_user' => NULL,
+    'mailer_password' => NULL,
+    'secret' => 'RATvPKh4sA9svezZSKA3CqcIueIUZGodmSLKqYsxOZLY0sMOUcMmka6R1oBoTAWJ',
+    'ps_caching' => 'CacheMemcache',
+    'ps_cache_enable' => false,
+    'ps_creation_date' => '2022-10-07',
+    'locale' => 'pl-PL',
+    'use_debug_toolbar' => true,
+    'cookie_key' => 'ARXp09eao520rrXhRc5hjqVb38uw92HSVSbrVmpof05EVi4sEu3AHQnXM9A6QpRF',
+    'cookie_iv' => '34gBk4NXNRnomrnbtACabDQ2whHmZkdJ',
+    'new_cookie_key' => 'def00000a012f2d4149aaf3a9a7d6f11a6739e68863f19614ea828283be76051c91d049364e93dad2c5ec50f3a47fb395383c9342d376cadf8f89a6ed7d1770aaa0cb77c',
+  ),
+);
