@@ -4,22 +4,26 @@
 
 			Oferowana w sklepie funkcjonalność działa prawidłowo - bez błędów (białe strony, 500, 404, 403 -> php / JS / img)	
 
-SCRAPER (UTF-8) 500 produktów
+SCRAPER (UTF-8) 500 produktów  - (MAKSYM)
 
-zamienic DESIGN and DATA
+funkcja inicjalizacji danych - (JAKUB)
 
-co najmniej dwa warianty produktowe (dot. wybranych produktów; np. obuwie w rozmiarze 40, 41; bluzka w rozmiarze S, M, L; kurs e-learningowy o długości 1h, 2h, 4h);
+zamienic DESIGN and DATA - (DZIANIS)
 
-wygenerować (samopodpisany) certyfikat SSL
+co najmniej dwa warianty produktowe - (DZIANIS)
+
+wygenerować (samopodpisany) certyfikat SSL - (YAUHENI)
 
 możliwić przeprowadzenie procesu zakupowego dla nowego użytkownika wraz z założeniem przez niego konta
 
 metody płatności do polskich realiów (cena z pln, BLIK, karta platnicza, przelew 24)
 
-wysyłać e-maile na adres wskazany przez użytkownika
+dwa przewoźnika (InPost, ORLEN)
+
+wysyłać e-maile na adres wskazany przez użytkownika - (YAUHENI)
 
 skrypt do testowania sklepu (w technologii Sellenium www.selenium.dev/documentaQon/en/)
-	
+
 
 - NIEOBOWIAZKOWE
 
