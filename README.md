@@ -45,3 +45,13 @@ produkty – nazwa, opis, zdjęcie, atrybuty)
 
 Podłączyć Google AnalyQcs do sklepu (nowa witryna do monitorowania -> numer UA-
 XYZAA -> w panelu sterowania sklepu)
+
+  
+Nazywnictwo: 
+
+1) improvement  
+2) bugfix  
+3) feature  
+
+feature/NPPM-732 - Name of branch, title - <b>comit</b>  
+feature/NPPM-732 - <b>branch name</b>  
