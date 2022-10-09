@@ -53,5 +53,5 @@ Nazywnictwo:
 2) bugfix  
 3) feature  
 
-feature/NPPM-732 - Name of branch, title - <b>comit</b>  
+feature/NPPM-732 - Name of branch, title - <b>commit</b>  
 feature/NPPM-732 - <b>branch name</b>  
