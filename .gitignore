@@ -1,3 +1,45 @@
+# compiled output
+/data-parser/dist
+/data-parser/tmp
+/data-parser/out-tsc
+# Only exists if Bazel was run
+/data-parser/bazel-out
 
-.gitignore
-.idea/
+# dependencies
+/data-parser/node_modules
+
+# profiling files
+/data-parser/chrome-profiler-events*.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+
+# misc
+/data-parser/.angular/cache
+/data-parser/.sass-cache
+/data-parser/connect.lock
+/data-parser/coverage
+/data-parser/libpeerconnection.log
+/data-parsernpm-debug.log
+/data-parseryarn-error.log
+/data-parsertestem.log
+/data-parser/typings
+
+# System Files
+.DS_Store
+Thumbs.db
