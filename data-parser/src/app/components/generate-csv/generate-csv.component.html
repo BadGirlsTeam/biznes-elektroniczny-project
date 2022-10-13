@@ -1,0 +1,40 @@
+<div class="card-wrapper">
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <img src="https://avatars.githubusercontent.com/u/115271443?s=200&v=4" mat-card-avatar />
+      <mat-card-title>Data parser by <span color="primary">BadGirlsTeam</span>
+      </mat-card-title>
+      <mat-card-subtitle>
+        Parsing data for <a href="https://github.com/BadGirlsTeam/biznes-elektroniczny-project">Biznes
+          Elektroniczny</a> project
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field class="example-form-field" appearance="standard" style="width:100%">
+        <mat-label>Count of products</mat-label>
+        <input matInput type="number" min="1" max="10000" [(ngModel)]="countOfProductsToGenerate"
+          [disabled]="creatingInProgress">
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <div class="spacer"></div>
+      <button mat-raised-button color="primary" [disabled]="creatingInProgress || countOfProductsToGenerate <= 0"
+        (click)="generateCSV()">
+        Generate CSV
+      </button>
+      <button mat-raised-button color="primary" [disabled]="!csvArray" (click)="downloadCSV()">
+        Download Generated CSV
+      </button>
+      <div class="spacer"></div>
+    </mat-card-actions>
+    <mat-card-footer>
+      <mat-progress-bar [value]="creatingProgresValue" *ngIf="creatingInProgress && creatingProgresValue > 0">
+      </mat-progress-bar>
+      <mat-progress-bar mode="indeterminate" *ngIf="creatingInProgress && creatingProgresValue <= 0">
+      </mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+
+</div>

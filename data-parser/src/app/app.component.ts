@@ -13,12 +13,7 @@ export interface Tile {
 })
 export class AppComponent {
   title = 'data-parser';
-  creatingInProgress: boolean = false;
   constructor() { }
-
-  generateCSV() {
-    this.creatingInProgress = true;
-  }
 }
 
 
