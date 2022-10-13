@@ -110,5 +110,8 @@
     }
   },
   
-  "defaultProject": "data-parser"
+  "defaultProject": "data-parser",
+  "cli": {
+    "analytics": false
+  }
 }
