@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { GenerateCsvComponent } from './components/generate-csv/generate-csv.component'
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -35,6 +36,7 @@ import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatSlideToggleModule,
     FormsModule,
     NgxAnimatedGradientModule,
   ],

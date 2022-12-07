@@ -10,11 +10,11 @@ export class ProductDataService {
 
   getProductsHtmlPage(page: number = 1, productListLimit: number = 40, productListOrder: string = "position", category: Categories = Categories.INDOOR_LAMPS,
     subcategory: SubCategoriesOutdoorLamps | SubCategoriesIndoorLamps | '' = ''): Observable<any> {
-    return this.request.get(this.getCorsPolicyBypassUrl() + this.getBaseUrl(page, productListLimit, productListOrder, category, subcategory));
+    return this.request.get(this.getBypassUrl() + this.getBaseUrl(page, productListLimit, productListOrder, category, subcategory));
   }
 
   getProductHtmlPage(url: string): Observable<any> {
-    return this.request.get(this.getCorsPolicyBypassUrl() + url);
+    return this.request.get(this.getBypassUrl() + url);
   }
 
   getBaseUrl(page: number, productListLimit: number, productListOrder: string,
@@ -23,7 +23,8 @@ export class ProductDataService {
   }
 
 
-  getCorsPolicyBypassUrl(): string {
+  getBypassUrl(): string {
+    http://api.scraperapi.com?api_key=cfd2ca55a98d6a5830548dcb8c174a2d&url=https://twoje-lampy.pl/
     return "https://cors-anywhere.herokuapp.com/";
     // return "";
   }

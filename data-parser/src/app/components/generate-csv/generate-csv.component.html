@@ -3,61 +3,72 @@
   <mat-card class="example-card">
     <mat-card-header>
       <img src="https://avatars.githubusercontent.com/u/115271443?s=200&v=4" alt="Avatar Github" mat-card-avatar />
-      <mat-card-title>Data parser by <span color="primary">BadGirlsTeam</span>
+      <mat-card-title>Parser danych został wykonany przez <span style="color: #018786">BadGirlsTeam</span>
       </mat-card-title>
       <mat-card-subtitle>
-        Parsing data for <a href="https://github.com/BadGirlsTeam/biznes-elektroniczny-project">Biznes
-          Elektroniczny</a> project
+        Parsowanie danych dla projektu <a href="https://github.com/BadGirlsTeam/biznes-elektroniczny-project">Biznes
+          Elektroniczny</a>
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
 
+
+
+      <!-- Categories -->
       <mat-form-field style="width:100%" appearance="standard">
-        <mat-label>Category</mat-label>
-        <mat-select [(value)]="selectedCategory" [disabled]="creatingInProgress || creatingLastProductInProgress">
+        <mat-label>Kategorie</mat-label>
+        <mat-select [(ngModel)]="selectedCategories" [disabled]="creatingInProgress || creatingLastProductInProgress"
+          (ngModelChange)="categoriesChangeListener()" multiple>
           <mat-option *ngFor="let category of categories" [value]="category.value">
             {{category.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field style="width:100%" appearance="standard"
-        *ngIf="selectedCategory && selectedCategory === categories[0].value">
-        <mat-label>Subcategory</mat-label>
-        <mat-select [(value)]="selectedSubcategory" [disabled]="creatingInProgress || creatingLastProductInProgress">
-          <mat-option *ngFor="let subcategory of indoorSubcategories" [value]="subcategory.value">
+
+
+
+      <!-- Subcategories -->
+      <mat-form-field style="width:100%" appearance="standard">
+        <mat-label>Podkategorie</mat-label>
+        <mat-select [(ngModel)]="selectedSubcategories"
+          [disabled]="creatingInProgress || creatingLastProductInProgress || !selectedCategories || selectedCategories.length === 0"
+          multiple>
+          <mat-option *ngFor="let subcategory of subcategories" [value]="subcategory.value">
             {{subcategory.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field style="width:100%" appearance="standard"
-        *ngIf="selectedCategory && selectedCategory === categories[1].value">
-        <mat-label>Subcategory</mat-label>
-        <mat-select [(value)]="selectedSubcategory" [disabled]="creatingInProgress || creatingLastProductInProgress">
-          <mat-option *ngFor="let subcategory of outdoorSubcategories" [value]="subcategory.value">
-            {{subcategory.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+
+
 
       <mat-form-field style="width:100%" appearance="standard">
-        <mat-label>Count of products</mat-label>
-        <input matInput type="number" min="1" max="10000" [(ngModel)]="countOfProductsToGenerate"
-          [disabled]="creatingInProgress || creatingLastProductInProgress">
+        <mat-label>Liczba produktów</mat-label>
+        <input matInput type="number" [min]="minimumProductCount()" max="10000" [(ngModel)]="countOfProductsToGenerate"
+          [disabled]="creatingInProgress || creatingLastProductInProgress || !selectedCategories ||
+          selectedCategories.length === 0 || !selectedSubcategories || selectedSubcategories.length === 0">
+        <mat-error>
+          Minimalna ilość produktów:
+          {{minimumProductCount()}}
+        </mat-error>
       </mat-form-field>
     </mat-card-content>
 
     <mat-card-actions align="end">
       <div class="spacer"></div>
-      <button mat-raised-button color="primary"
-        [disabled]="creatingInProgress || creatingLastProductInProgress || countOfProductsToGenerate <= 0"
-        (click)="generateCSV()">
-        Generate CSV
+      <button mat-raised-button color="primary" [disabled]="creatingInProgress || creatingLastProductInProgress ||
+          !selectedCategories || selectedCategories.length===0 || !selectedSubcategories || selectedSubcategories.length === 0 ||
+           countOfProductsToGenerate < minimumProductCount()" (click)="generateCSV()">
+        Wygeneruj plik CSV
       </button>
       <button mat-raised-button color="primary" [disabled]="!csvArray" (click)="downloadCSV()">
-        Download Generated CSV
-        {{ productsData && productsData.length > 0 && finishedProductsCount && finishedProductsCount > 0  ? ' (' + finishedProductsCount + ')' : '' }}
+        Pobierz wygenerowane produktu
+        {{ productsData && productsData.length > 0 ? ' (' + filterProductsByImageExisting() + ')' : '' }}
+      </button>
+      <button mat-raised-button color="primary" [disabled]="!csvCombinationArray" (click)="downloadCombinationCSV()">
+        Pobierz wygenerowane kombinacje
+        {{ productsCombinationData && productsCombinationData.length > 0 ? ' (' + productsCombinationData.length + ')' : '' }}
       </button>
       <div class="spacer"></div>
     </mat-card-actions>
