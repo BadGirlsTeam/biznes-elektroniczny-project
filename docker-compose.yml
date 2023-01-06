@@ -1,70 +1,68 @@
-version: '3.9'
-
-volumes:
-  db-data:
-  vendor:
-  var:
+version: '3.8'
 
 services:
-  mysql:
-    build:
-      dockerfile: Dockerfile
-      context: ./mysql/.
-    ports:
-      - "3306"
-    volumes:
-      - db-data:/var/lib/mysql
+  db:
+    image: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: prestashop
-      MYSQL_DATABASE: prestashop
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: biznesbadgirlsdb
     deploy:
       restart_policy:
         condition: on-failure
         delay: 5s
         max_attempts: 3
         window: 120s
-  prestashop-git:
-    build:
-      dockerfile: .docker/Dockerfile
-      context: ./PrestaShop/.
-      args:
-        - VERSION=${VERSION:-8.1-apache}
-        - USER_ID=${USER_ID:-1000}
-        - GROUP_ID=${GROUP_ID:-1000}
-    environment:
-      DISABLE_MAKE: ${DISABLE_MAKE:-0}
-      PS_INSTALL_AUTO: ${PS_INSTALL_AUTO:-1}
-      DB_PASSWD: ${DB_PASSWD:-prestashop}
-      DB_NAME: ${DB_NAME:-prestashop}
-      DB_SERVER: ${DB_SERVER:-mysql}
-      DB_PREFIX: ${DB_PREFIX:-ps_}
-      PS_DOMAIN: ${PS_DOMAIN:-localhost:8001}
-      PS_FOLDER_INSTALL: ${PS_FOLDER_INSTALL:-install-dev}
-      PS_FOLDER_ADMIN: ${PS_FOLDER_ADMIN:-admin-dev}
-      PS_COUNTRY: ${PS_COUNTRY:-pl}
-      PS_LANGUAGE: ${PS_LANGUAGE:-pl}
-      PS_DEV_MODE: ${PS_DEV_MODE:-1}
-      PS_DEMO_MODE: ${PS_DEMO_MODE:-0}
-      PS_HANDLE_DYNAMIC_DOMAIN: ${PS_HANDLE_DYNAMIC_DOMAIN:-1}
-      PS_INSTALL_DB: ${PS_INSTALL_DB:-1}
-      PS_ENABLE_SSL: ${PS_ENABLE_SSL:-1}
-      ADMIN_MAIL: ${ADMIN_MAIL:-s183043@student.pg.edu.pl}
-      ADMIN_PASSWD: ${ADMIN_PASSWD:-Had4fcIgjgIMVQrM}
-    command: ["/tmp/wait-for-it.sh", "--timeout=60", "--strict", "mysql:3306", "--", "/tmp/docker_run_git.sh"]
-    ports:
-      - "8001:80"
-      - "8002:443"
     volumes:
-      - ./PrestaShop/:/var/www/html:delegated
+      - ./mysql:/docker-entrypoint-initdb.d
+    ports:
+      - 3360:3360
+    networks:
+      - biznes-bad-girls
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    links:
-      - mysql:mysql
     ports:
-      - 1235:80
-    depends_on:
-      - mysql
+      - 8080:80
     environment:
-      - PMA_HOST=mysql
-      - PMA_USER=root
-      - PMA_PASSWORD=prestashop
+      PMA_HOST: db
+    depends_on:
+      - db
+    networks:
+      - biznes-bad-girls
+
+  prestashop:
+    depends_on:
+      - db
+    ports:
+      - 80:80
+      - 443:443
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PS_INSTALL_AUTO: 0
+      DB_SERVER: db
+      DB_USER: root
+      DB_PASSWD: root
+      DB_NAME: biznesbadgirlsdb
+      PS_DEV_MODE: 0
+      ALLOW_OVERRIDE: 1
+      PS_FOLDER_ADMIN: adminPanel
+      PS_DOMAIN: localhost:80
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    volumes:
+      - ./src:/var/www/html
+      - ./src/adminPanel:/var/www/html/adminPanel
+      - ./src/modules:/var/www/html/modules
+      - ./src/themes:/var/www/html/themes
+      - ./src/override:/var/www/html/override
+    networks:
+      - biznes-bad-girls
+
+networks:
+  biznes-bad-girls:
