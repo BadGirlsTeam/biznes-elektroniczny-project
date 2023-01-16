@@ -1,3 +1,8 @@
+CREATE DATABASE IF NOT EXISTS be_183043;
+CREATE USER IF NOT EXISTS be_183043@'%' IDENTIFIED BY 'prestashop';
+GRANT ALL PRIVILEGES ON be_183043.* TO 'be_183043'@'%';
+FLUSH PRIVILEGES;
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.0
 -- https://www.phpmyadmin.net/

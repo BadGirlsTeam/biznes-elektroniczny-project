@@ -1,4 +1,5 @@
-version: '3'
+version: '2.1'
+
 
 volumes:
   db-data:
@@ -6,16 +7,14 @@ volumes:
 services:
   mysql:
     platform: linux/amd64
-    build:
-      context: ./mysql/.
-      dockerfile: .docker/Dockerfile
+    image: mysql:5
     ports:
-      - "3306"
+      - "18307:3306"
     volumes:
-      - db-data:/var/lib/mysql
+      - ./mysql:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: prestashop
-      MYSQL_DATABASE: prestashop
+      MYSQL_DATABASE: be_183043
     deploy:
       restart_policy:
           condition: on-failure
@@ -23,15 +22,32 @@ services:
           max_attempts: 3
           window: 120s
   
+  ssphpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links: 
+      - mysql:mysql
+    ports:
+      - 18308:80
+    depends_on:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=prestashop
+
   prestashop-git:
     build:
-      context: .docker
       dockerfile: .docker/Dockerfile
+      context: .
+      args:
+        - VERSION=${VERSION:-8.1-apache}
+        - USER_ID=${USER_ID:-1000}
+        - GROUP_ID=${GROUP_ID:-1000}
     environment:
       DISABLE_MAKE: ${DISABLE_MAKE:-1}
       PS_INSTALL_AUTO: ${PS_INSTALL_AUTO:-1}
       DB_PASSWD: ${DB_PASSWD:-prestashop}
-      DB_NAME: ${DB_NAME:-prestashop}
+      DB_NAME: ${DB_NAME:-be_183043}
       DB_SERVER: ${DB_SERVER:-mysql}
       DB_PREFIX: ${DB_PREFIX:-ps_}
       PS_DOMAIN: ${PS_DOMAIN:-localhost:18305}
@@ -51,15 +67,4 @@ services:
       - "18305:80"
       - "18306:443"
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    links: 
-      - mysql:mysql
-    ports:
-      - 18307:80
-    depends_on:
-      - mysql
-    environment:
-      - PMA_HOST=mysql
-      - PMA_USER=root
-      - PMA_PASSWORD=prestashop
+      
