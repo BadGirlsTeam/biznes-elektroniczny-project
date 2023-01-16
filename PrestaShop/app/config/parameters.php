@@ -3,8 +3,8 @@
   array (
     'database_host' => 'mysql',
     'database_port' => '3306',
-    'database_name' => 'prestashop',
-    'database_user' => 'root',
+    'database_name' => 'be_183043',
+    'database_user' => 'be_183043',
     'database_password' => 'prestashop',
     'database_prefix' => 'ps_',
     'database_engine' => 'InnoDB',

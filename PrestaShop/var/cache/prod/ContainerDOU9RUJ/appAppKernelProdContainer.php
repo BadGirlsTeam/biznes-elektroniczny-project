@@ -2242,7 +2242,7 @@ class appAppKernelProdContainer extends Container
         ]));
         $a->addEventListener([0 => 'loadClassMetadata'], 'doctrine.orm.default_listeners.attach_entity_listeners');
 
-        return $this->services['doctrine.dbal.default_connection'] = (new \Doctrine\Bundle\DoctrineBundle\ConnectionFactory([]))->createConnection(['driver' => 'pdo_mysql', 'host' => 'mysql', 'port' => '3306', 'dbname' => 'prestashop', 'user' => 'root', 'password' => 'prestashop', 'charset' => 'utf8mb4', 'driverOptions' => [1002 => 'SET sql_mode=(SELECT REPLACE(@@sql_mode,\'ONLY_FULL_GROUP_BY\',\'\'))'], 'defaultTableOptions' => []], new \Doctrine\DBAL\Configuration(), $a, ['enum' => 'string']);
+        return $this->services['doctrine.dbal.default_connection'] = (new \Doctrine\Bundle\DoctrineBundle\ConnectionFactory([]))->createConnection(['driver' => 'pdo_mysql', 'host' => 'mysql', 'port' => '3306', 'dbname' => 'be_183043', 'user' => 'be_183043', 'password' => 'prestashop', 'charset' => 'utf8mb4', 'driverOptions' => [1002 => 'SET sql_mode=(SELECT REPLACE(@@sql_mode,\'ONLY_FULL_GROUP_BY\',\'\'))'], 'defaultTableOptions' => []], new \Doctrine\DBAL\Configuration(), $a, ['enum' => 'string']);
     }
 
     /*
@@ -3749,8 +3749,8 @@ class appAppKernelProdContainer extends Container
             'container.dumper.inline_class_loader' => false,
             'database_host' => 'mysql',
             'database_port' => '3306',
-            'database_name' => 'prestashop',
-            'database_user' => 'root',
+            'database_name' => 'be_183043',
+            'database_user' => 'be_183043',
             'database_password' => 'prestashop',
             'database_prefix' => 'ps_',
             'database_engine' => 'InnoDB',

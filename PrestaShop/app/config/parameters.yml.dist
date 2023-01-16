@@ -4,8 +4,8 @@
 parameters:
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     prestashop
-    database_user:     root
+    database_name:     be_183043
+    database_user:     be_183043
     database_password: ~
     database_prefix:   ps_
     database_engine: InnoDB
