@@ -12,4 +12,4 @@ Nazywnictwo:
 feature/NPPM-732 - Name of branch, title - <b>commit</b>  
 feature/NPPM-732 - <b>branch name</b>  
 
-[link do zipa](https://drive.google.com/file/d/1xYXlIxA5cs38CDRCEaJCbTNngbyX_EU2/view?usp=sharing)
+[link do zipa](https://drive.google.com/file/d/1cPrSUjn9Ua2kmL69mpCgro1soFAKZxmC/view?usp=share_link)
