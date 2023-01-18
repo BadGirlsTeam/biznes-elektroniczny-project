@@ -3,9 +3,13 @@ from selenium.webdriver.common.by import By
 import random
 import time
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.chrome.options import Options
 
-driver = webdriver.Chrome()
-driver.get("http://34.97.160.191/")
+options = Options()
+options.accept_insecure_certs = True
+
+driver = webdriver.Chrome(chrome_options=options)
+driver.get("https://localhost:18306")
 
 addchance = [0] * 10
 #addchance += [1] * 1
@@ -43,7 +47,7 @@ def buy_product(first_product: bool, category: int):
 
 def buy_products_in_category(first: bool, quantity_of_sec_category: int, category: int):
     elements = driver.find_elements(By.CSS_SELECTOR, "article[data-id-product]")
-    howmany = min(len(elements), 6) if first else quantity_of_sec_category
+    howmany = min(len(elements), 2) if first else quantity_of_sec_category
     first_product = True if first else False
     ilosc = 0
     indeks = 0
@@ -66,12 +70,13 @@ def buy_products_in_category(first: bool, quantity_of_sec_category: int, categor
         if indeks == len(elements):
             nextpage = driver.find_element(By.CSS_SELECTOR, "a[rel='next']")
             nextpage.click()
-            time.sleep(10)
+            time.sleep(4)
             indeks = 0
     return 10 - howmany
 
 
 def buy_products():
+    time.sleep(5)
     # znajdz kategorie produktow(bez podkategorii)
     elements = driver.find_elements(By.CSS_SELECTOR, ".top-menu[data-depth=\"0\"] > .category")
     ile_w_drugim = 3
@@ -91,7 +96,7 @@ def remove_product_from_cart():
     time.sleep(2)
     canceledproduct.click()
 
-    time.sleep(5)
+    time.sleep(4)
     productsincart = driver.find_elements(By.CSS_SELECTOR, ".cart-item")
     print(len(productsincart))
 
@@ -100,11 +105,11 @@ def registeraccount():
     goToCheckout = driver.find_element(By.CSS_SELECTOR,
                                        "a[class='btn btn-primary']")
     goToCheckout.click()
-    time.sleep(10)
+    time.sleep(3)
     gender = driver.find_element(By.CSS_SELECTOR, "input[type='radio'][value='1']")
     gender.click()
     firstname = driver.find_element(By.CSS_SELECTOR, "input[type='text'][id='field-firstname']")
-    firstname.send_keys("John")
+    firstname.send_keys("Diego")
     lastname = driver.find_element(By.CSS_SELECTOR, "input[type='text'][id='field-lastname']")
     lastname.send_keys("Wick")
     email = driver.find_element(By.CSS_SELECTOR, "input[type='email'][id='field-email']")
@@ -119,7 +124,7 @@ def registeraccount():
     acceptconditions.click()
     submit = driver.find_element(By.CSS_SELECTOR, "button[name='continue'][type='submit']")
     submit.click()
-    time.sleep(10)
+    time.sleep(3)
 
 
 def addresses():
@@ -132,12 +137,12 @@ def addresses():
     submit = driver.find_element(By.CSS_SELECTOR, "button[type='submit'][name='confirm-addresses']")
     # delete_cache()
     submit.click()
-    time.sleep(10)
+    time.sleep(3)
 
 
 def courrier():
-    time.sleep(10)
-    chosenCourrier = driver.find_element(By.CSS_SELECTOR, "input[type='radio'][id='delivery_option_11']")
+    time.sleep(3)
+    chosenCourrier = driver.find_element(By.CSS_SELECTOR, "input[type='radio'][id='delivery_option_13']")
     chosenCourrier.click()
     submit = driver.find_element(By.CSS_SELECTOR, "button[type='submit'][name='confirmDeliveryOption']")
     submit.click()
@@ -164,16 +169,16 @@ def payment():
     confirmPayment = confirmPayment.find_element(By.CSS_SELECTOR,
                                                  "button[type='submit'][class='btn btn-primary center-block']")
     confirmPayment.click()
-    time.sleep(10)
+    time.sleep(5)
 
 
 def checkOrder():
     account = driver.find_element(By.CSS_SELECTOR, "a[class='account']")
     account.click()
-    time.sleep(5)
+    time.sleep(3)
     history = driver.find_element(By.CSS_SELECTOR, "a[id='history-link']")
     history.click()
-    time.sleep(5)
+    time.sleep(3)
     orders = driver.find_element(By.CSS_SELECTOR, "section[id='content']")
     numoforders = orders.find_elements(By.CSS_SELECTOR, "tr")
     if len(numoforders) > 0:
@@ -181,11 +186,17 @@ def checkOrder():
 
 
 buy_products()
+print("Kupilo")
 remove_product_from_cart()
+print("Usunelo produkt")
 registeraccount()
+print("Zarejestrowało")
 addresses()
+print("Podało adres")
 courrier()
+print("Zaznaczyło kuriera")
 payment()
+print("Zaznaczyło zapłatę")
 checkOrder()
 
 driver.close()
